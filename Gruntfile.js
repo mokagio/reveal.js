@@ -89,6 +89,21 @@ module.exports = function(grunt) {
 			files: [ 'Gruntfile.js', 'js/reveal.js' ]
 		},
 
+		jade: {
+        compile: {
+            options: {
+							pretty: true,
+							debug: true
+            },
+            files: [ {
+              src: ["./index.jade"],
+              dest: ".",
+              expand: true,
+              ext: ".html"
+            } ]
+        }
+    },
+
 		connect: {
 			server: {
 				options: {
@@ -131,8 +146,12 @@ module.exports = function(grunt) {
 			html: {
 				files: [ 'index.html']
 			},
+			jade: {
+				files: [ 'index.jade', 'slides/**/*.jade' ],
+				tasks: 'jade'
+			},
 			markdown: {
-				files: [ './*.md' ]
+				files: [ "./*.md" ]
 			}
 		}
 
@@ -144,6 +163,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
+	grunt.loadNpmTasks( 'grunt-contrib-jade' );
 	grunt.loadNpmTasks( 'grunt-sass' );
 	grunt.loadNpmTasks( 'grunt-contrib-connect' );
 	grunt.loadNpmTasks( 'grunt-autoprefixer' );
@@ -172,5 +192,4 @@ module.exports = function(grunt) {
 
 	// Run tests
 	grunt.registerTask( 'test', [ 'jshint', 'qunit' ] );
-
 };
